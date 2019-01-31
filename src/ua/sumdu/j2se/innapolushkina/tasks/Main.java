@@ -5,15 +5,31 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ua.sumdu.j2se.innapolushkina.tasks.controller.ChooseTaskList;
+import ua.sumdu.j2se.innapolushkina.tasks.controller.EditTask;
+import ua.sumdu.j2se.innapolushkina.tasks.controller.TaskListController;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Task manager");
-        primaryStage.setScene(new Scene(root, 750, 700));
-        primaryStage.show();
+        FXMLLoader loader = new FXMLLoader();
+        ChooseTaskList chooseFile = new ChooseTaskList();
+        chooseFile.setStage(primaryStage);
+        loader.setController(chooseFile);
+        try {
+            loader.setLocation(ChooseTaskList.class.getResource("..//chooseTaskList.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException ex){
+            System.out.println("exception " + ex);
+        }
+
     }
 
 

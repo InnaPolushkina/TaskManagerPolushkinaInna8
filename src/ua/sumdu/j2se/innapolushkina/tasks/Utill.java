@@ -122,6 +122,7 @@ public class Utill {
         return Date.from(zonedDateTime.toInstant());
     }
 
+
     public static int getIntervalFromStrings(String days, String hours, String minutes) {
         return Integer.parseInt(days) * 86400 + Integer.parseInt(hours) * 3600 + Integer.parseInt(minutes) * 60;
     }

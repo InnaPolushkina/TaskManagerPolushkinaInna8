@@ -21,7 +21,7 @@
       <Label fx:id="intervalEditedLabel" layoutX="247.0" layoutY="221.0" text="Repeat every" />
       <Label fx:id="dateEndLabelEdited" layoutX="315.0" layoutY="141.0" text="Date of end" />
       <CheckBox fx:id="activeEdited" layoutX="80.0" layoutY="101.0" mnemonicParsing="false" text="Active" />
-      <CheckBox fx:id="repeatEdited" layoutX="327.0" layoutY="101.0" mnemonicParsing="false" text="Repeat" />
+      <CheckBox fx:id="repeatEdited" layoutX="327.0" layoutY="101.0" mnemonicParsing="false" onAction="#changeCreationMode" text="Repeat" />
       <Button fx:id="save" layoutX="355.0" layoutY="420.0" mnemonicParsing="false" onAction="#editTask" prefHeight="25.0" prefWidth="83.0" text="Save" />
       <Button fx:id="cancel" layoutX="472.0" layoutY="420.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="83.0" text="Cancel" />
       <TextField fx:id="titleEdited" layoutX="247.0" layoutY="52.0" />

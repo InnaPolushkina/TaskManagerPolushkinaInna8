@@ -6,7 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,32 +13,39 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ua.sumdu.j2se.innapolushkina.tasks.Utill;
 import ua.sumdu.j2se.innapolushkina.tasks.model.LinkedTaskList;
 import ua.sumdu.j2se.innapolushkina.tasks.model.Task;
+import ua.sumdu.j2se.innapolushkina.tasks.model.TaskIO;
 import ua.sumdu.j2se.innapolushkina.tasks.model.TaskList;
+import java.io.File;
 
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 
-import static ua.sumdu.j2se.innapolushkina.tasks.Utill.integerString;
+import static ua.sumdu.j2se.innapolushkina.tasks.Utill.*;
 
 
 public class TaskListController {
 
-    private TaskList linkedTaskList = new LinkedTaskList();
-    private Task task = new Task("today is happy day",new Date());
-    private ObservableList<Task> observableList = FXCollections.observableArrayList(task);
+    private List<Task> linkedTaskList = new LinkedList<>();
+    private ObservableList<Task> observableList;
+    private Notificator notificator;
+    private static final String savedTasksFileName = "tasks.txt";
+    private static final String tasklistsDir = "D:\\JAVA\\TaskManagerPolushkinaInna\\src\\ua\\sumdu\\j2se\\innapolushkina\\tasks\\";
+
+    private File tasksFile = new File(new StringBuilder(tasklistsDir).append(savedTasksFileName).toString());
     @FXML
     private javafx.scene.control.Label details;
     @FXML
@@ -66,7 +72,7 @@ public class TaskListController {
     private TableColumn<Task,String> nameTask;
 
     @FXML
-    private TableColumn<Task, Date> dateTask;
+    private TableColumn<Task, String> dateTask;
     @FXML
     private JFXTimePicker startTime;
 
@@ -93,18 +99,31 @@ public class TaskListController {
 
     @FXML
     private Label intervalLabel;
-
-
+    @FXML
+    public Button exit;
+    public File c = getTasksFile();
 
 
 
     public TaskListController() {
+        //tasksFile = f;
+    }
+
+    public File getTasksFile() {
+        return tasksFile;
+    }
+
+    public void setTasksFile(String wayToLastFile) {
+        this.tasksFile = new File(wayToLastFile);
     }
 
     @FXML
-    private void initialize(){
-        nameTask.setCellValueFactory(new PropertyValueFactory<Task,String>("title"));
-        dateTask.setCellValueFactory(new PropertyValueFactory<Task,Date>("time"));
+    private void initialize() throws IOException{
+        nameTask.setCellValueFactory(new PropertyValueFactory<Task,String>("observableTitle"));
+        dateTask.setCellValueFactory(new PropertyValueFactory<Task,String>("observableTime"));
+
+        //tasksFile = new File(new StringBuilder(tasklistsDir).append(savedTasksFileName).toString());
+        observableList = loadTaskList();
         listTasks.setItems(observableList);
          date.getValue();
 
@@ -144,28 +163,19 @@ public class TaskListController {
                 }
             }
         });
-       // dateStartLabel.setText("Date");
         Utill.hideNodes(dateEnd, dateEndLabel, daysTxt, daysLabel, minutesLabel, minutesTxt, hoursTxt, hoursLabel, endTime, intervalLabel);
+        notifyUser();
+
     }
 
 
     public void editTask(ActionEvent actionEvent) {
-
-       /* try{
-           Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("..//editTask.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }
-        catch(IOException e){
-            System.out.println("ioException");
-        }*/
         TableView.TableViewSelectionModel selectionModel = listTasks.getSelectionModel();
         ObservableList selectedCells = selectionModel.getSelectedCells();
         TablePosition tablePosition = (TablePosition) selectedCells.get(0);
         int row = tablePosition.getRow();
-        Task taskEdit = linkedTaskList.getTask(row-1);
+        Task taskEdit = observableList.get(row);
+
 
         FXMLLoader loader = new FXMLLoader();
         EditTask controller = new EditTask(taskEdit);
@@ -180,7 +190,6 @@ public class TaskListController {
         }catch (IOException ex){
             System.out.println("exception " + ex);
         }
-
 
        //stage.initModality(Modality.APPLICATION_MODAL);
         //stage.initOwner();
@@ -204,20 +213,19 @@ public class TaskListController {
         ObservableList selectedCells = seltionModel.getSelectedCells();
         TablePosition tablePosition = (TablePosition) selectedCells.get(0);
         int row = tablePosition.getRow();
-        String act;
-        if(observableList.get(row).isActive()){
-            act = " active";
-        } else {
-            act = "not active";
+        Task d = observableList.get(row);
+        String title = d.getTitle();
+        String start = d.getStartTime().toString();
+        String end = d.getObservableEnd();
+        String time = d.getObservableTime();
+        String active = d.getObservableIsActive();
+        String interval = d.getObservableInterval();
+        if ( d.isRepeated() ) {
+            details.setText("Name task - " + title + ". State -  " + active + ". Task start at " + start +", finish at  " + end + ". \nTask repeats - " + interval + ". Next time  "  + d.nextTimeAfter(new Date()).toString());
         }
-        if(observableList.get(row).isRepeated()) {
-            details.setText((row+1) +". Name task " + observableList.get(row).getTitle() + ", repeated with interval " + observableList.get(row).getRepeatInterval() + ", next time " + observableList.get(row).nextTimeAfter(new Date()) );
+        else {
+            details.setText("Name task - " + title + ". State - " + active + ". Time " + time);
         }
-        else{
-            details.setText((row+1) +". Name task ' " + observableList.get(row).getTitle() + " ', task don't repeat. "+" At this moment task is " + act);
-        }
-
-
     }
 
    @FXML
@@ -252,6 +260,7 @@ public class TaskListController {
        } catch (AWTException e) {
            e.printStackTrace();
        }
+
        if(observableList.add(task)){
            linkedTaskList.add(task);
            refresh();
@@ -262,8 +271,41 @@ public class TaskListController {
 
 
     public void exit(ActionEvent event) {
+        //tasksFile = new File(new StringBuilder(tasklistsDir).append(savedTasksFileName).toString());
+        File previousFile = new File("D:\\JAVA\\TaskManagerPolushkinaInna\\src\\ua\\sumdu\\j2se\\innapolushkina\\tasks\\previousFile.txt");
+        TaskList list = new LinkedTaskList();
+        for (Task t:observableList
+             ) {
+            list.add(t);
+        }
         // при нажатии происходит запись созданного списка задач в файл(создаеться автоматически)
+        System.out.println(new StringBuilder(getClass().getName()).append(": saving the tasks"));
+        try {
+            TaskIO.writeText(list,tasksFile);
+            TaskIO.writeText(list,previousFile);
+            System.out.println(new StringBuilder(getClass().getName()).append(": tasks have been successfully saved"));
+        }catch (IOException e) {
+            System.out.println(e.getCause());
+        }
+        Stage stage = (Stage) exit.getScene().getWindow();
+        stage.close();
 
+    }
+
+    private ObservableList<Task> loadTaskList() throws IOException {
+        System.out.println(new StringBuilder(getClass().getName()).append(": loading the task list"));
+        List <Task> listlist = new LinkedList<>();
+        TaskList list = new LinkedTaskList();
+        TaskIO.readText(list,tasksFile);
+        for (Task t:list
+             ) {
+            listlist.add(t);
+            linkedTaskList.add(t);
+        }
+        observableList = FXCollections.observableArrayList(Collections.synchronizedList(listlist));
+        //TaskIO.readText(observableList,tasksFile);
+        System.out.println(new StringBuilder(getClass().getName()).append(": the list has benn loaded: ").append(observableList));
+        return observableList;
     }
     private void refresh() {
         title.setText("");
@@ -274,6 +316,7 @@ public class TaskListController {
         daysTxt.setText("0");
         hoursTxt.setText("0");
         minutesTxt.setText("10");
+        //repeat.setSelected(false);
 
     }
 
@@ -282,8 +325,47 @@ public class TaskListController {
         ObservableList selectedCells = seltionModel.getSelectedCells();
         TablePosition tablePosition = (TablePosition) selectedCells.get(0);
         int row = tablePosition.getRow();
-        Task removedTask = linkedTaskList.getTask(row-1);
-        linkedTaskList.remove(removedTask);
+        Task removedTask = observableList.get(row);
+        //linkedTaskList.remove(removedTask);
         observableList.remove(removedTask);
+        if (observableList.size() == 0) {
+            details.setText("Add task to list and select it");
+        }
     }
+
+    public void calendar(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        Calendar controller = new Calendar(linkedTaskList);
+        loader.setController(controller);
+        try {
+            loader.setLocation(Calendar.class.getResource("..//calendar.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException ex){
+            System.out.println("exception " + ex);
+        }
+    }
+
+    private void notifyUser(){
+        System.out.println(new StringBuilder(getClass().getName()).append(": launching the notificator starts"));
+        SystemTray tray = SystemTray.getSystemTray();
+        Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
+        TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
+        trayIcon.setImageAutoSize(true);
+        trayIcon.setToolTip("System tray icon demo");
+        try {
+            tray.add(trayIcon);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        Notificator notificator = new Notificator(observableList, trayIcon);
+        notificator.setDaemon(true);
+        notificator.start();
+        System.out.println(new StringBuilder(getClass().getName()).append(": launching the notificator finished"));
+    }
+
+
 }
