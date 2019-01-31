@@ -26,7 +26,6 @@ public class ChooseTaskList {
 
     public void loadFromFile(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-        //fileChooser.setInitialDirectory(new File("/tasks"));
         fileChooser.setTitle("Choose file");
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)","*.txt" );
         fileChooser.getExtensionFilters().add(extensionFilter);
@@ -35,6 +34,7 @@ public class ChooseTaskList {
 
         FXMLLoader loader = new FXMLLoader();
         TaskListController controller = new TaskListController();
+        //System.out.println(file.getCanonicalPath());
         controller.setTasksFile(file.getAbsolutePath());
         loader.setController(controller);
         try {

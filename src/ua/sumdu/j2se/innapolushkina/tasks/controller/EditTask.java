@@ -67,25 +67,7 @@ public class EditTask {
     public EditTask(Task task) {
         editTask = task;
     }
-   /* @FXML
-    private void initialize(){
-        titleEdited.setText(editTask.getTitle());
-        activeEdited.setSelected(editTask.isActive());
-        repeatEdited.setSelected(editTask.isRepeated());
-        LocalDate start = dateToLocalDateTime(editTask.getStartTime());
-        dateStartEdited.setValue(start);
-        LocalDate end = dateToLocalDateTime(editTask.getEndTime());
-        dateEndEdited.setValue(end);
-        startTimeEdited.setValue(dateToLocalTime(editTask.getStartTime()));
-        endTimeEdited.setValue(dateToLocalTime(editTask.getEndTime()));
-        //daysTxtEdited.setText();
-        int interval = editTask.getRepeatInterval();
-        daysTxtEdited.setText(Integer.toString(secondsToIntegerDays(interval)));
-        hoursTxtEdited.setText(Integer.toString(secondsToIntegerHours(interval)));
-        minutesTxtEdited.setText(Integer.toString(secondsToIntegerMinutes(interval)));
 
-
-    }*/
 
     @FXML
     public void initialize() {
@@ -156,9 +138,6 @@ public class EditTask {
                 }
             }
         });
-
-      //  refreshValues();
-
 
         dateStartEdited.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
@@ -255,42 +234,6 @@ public class EditTask {
     public Task getEditTask() {
         return editTask;
     }
-/*
-    public void editTask(ActionEvent event) {
-        Task taskEdited;
-        String details = titleEdited.getText();
-        editTask.setTitle(titleEdited.getText());
-        System.out.println(editTask.toString());
-
-       if(details == null) {
-            titleEdited.setPromptText("Please, enter the task");
-            return;
-        }
-        if("".equals(details) || details == null) {
-            System.err.println(new StringBuilder("Try to edit an empty task ").append(getClass()));
-            return;
-        }
-        Date start =  java.sql.Date.valueOf(dateStartEdited.getValue());
-        start.setTime(start.getTime() + startTimeEdited.getValue().getHour() * 3600000 + startTimeEdited.getValue().getMinute() * 60000);
-        if(repeatEdited.isSelected()) {
-            Date end =  java.sql.Date.valueOf(dateEndEdited.getValue());
-            end.setTime(end.getTime() + endTimeEdited.getValue().getHour() * 3600000 + endTimeEdited.getValue().getMinute() * 60000);
-            taskEdited = new Task(details, start, end,
-                    Utill.getIntervalFromStrings(daysTxtEdited.getText(), hoursTxtEdited.getText(), minutesTxtEdited.getText()));
-        }else {
-            taskEdited = new Task(details, start);
-        }
-        taskEdited.setActive(activeEdited.isSelected());
-        SystemTray tray = SystemTray.getSystemTray();
-        Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
-        TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
-        trayIcon.setImageAutoSize(true);
-        try {
-            tray.add(trayIcon);
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public void cancel(ActionEvent event) {
         Stage stage = (Stage) cancel.getScene().getWindow();

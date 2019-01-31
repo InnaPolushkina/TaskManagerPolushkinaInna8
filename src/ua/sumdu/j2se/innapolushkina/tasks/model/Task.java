@@ -150,68 +150,6 @@ public class Task  implements Cloneable,  Serializable{
         this.observableActive.set(observableIsActive);
     }
 
-
-       /* public String getObservableStart() {
-            return observableStart.get();
-        }
-
-        public StringProperty observableStartProperty() {
-            return observableStart;
-        }
-
-        public void setObservableStart(String observableStart) {
-            this.observableStart.set(observableStart);
-        }
-
-        public String getObservableEnd() {
-            return observableEnd.get();
-        }
-
-        public StringProperty observableEndProperty() {
-            return observableEnd;
-        }
-
-        public void setObservableEnd(String observableEnd) {
-            this.observableEnd.set(observableEnd);
-        }
-
-        public String getObservableInterval() {
-            return observableInterval.get();
-        }
-
-        public StringProperty observableIntervalProperty() {
-            return observableInterval;
-        }
-
-        public void setObservableInterval(String observableInterval) {
-            this.observableInterval.set(observableInterval);
-        }
-
-        public String getObservableActive() {
-            return observableActive.get();
-        }
-
-        public StringProperty observableActiveProperty() {
-            return observableActive;
-        }
-
-        public void setObservableActive(String observableActive) {
-            this.observableActive.set(observableActive);
-        }
-
-        public String getObservableRepeat() {
-            return observableRepeat.get();
-        }
-
-        public StringProperty observableRepeatProperty() {
-            return observableRepeat;
-        }
-
-        public void setObservableRepeat(String observableRepeat) {
-            this.observableRepeat.set(observableRepeat);
-        }*/
-
-
         public Task() {
             super();
         }
@@ -365,23 +303,7 @@ public class Task  implements Cloneable,  Serializable{
 
             }
             return time;
-         /*if (!repeat && time.after(current) && active)
-            return time;
-        if (repeat && start.after(current) && active)
-            return start;
-        if (isRepeated()) {
-            Date k = start;
-            while (current.after(k)) {
-                //k.add((GregorianCalendar.MONTH), current.getMonth());
-                //k += interval;
-                k = current;
-            }
-            if (k.after(end)) {
-                return null;
-            }
-            return k;
-        }
-        return null;*/
+
         }
         @Override
         public boolean equals(Object o){
@@ -405,19 +327,6 @@ public class Task  implements Cloneable,  Serializable{
             hash = hash*17 + time.hashCode();
             return hash;
         }
-
-    /* @Override
-    public String toString() {
-        return "Task{" +
-                "title='" + title + '\'' +
-                ", time=" + time +
-                ", active=" + active +
-                ", start=" + start +
-                ", end=" + end +
-                ", interval=" + interval +
-                ", repeat=" + repeat +
-                '}';
-    }*/
 
         @Override
         public String toString() {

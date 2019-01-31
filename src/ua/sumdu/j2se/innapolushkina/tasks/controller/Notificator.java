@@ -22,10 +22,10 @@ import java.util.regex.Pattern;
 import java.awt.*;
 import java.util.Date;
 
-/**
+/*
  * The class that notifies the user that some event is going to happen
  * in less than 10 minutes.
- * Shows a tray-notification every minute
+ * Shows a tray-notification
  *
  * */
 public class Notificator extends Thread {
