@@ -15,21 +15,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader();
-        ChooseTaskList chooseFile = new ChooseTaskList();
-        chooseFile.setStage(primaryStage);
-        loader.setController(chooseFile);
-        try {
-            loader.setLocation(ChooseTaskList.class.getResource("..//chooseTaskList.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-        }catch (IOException ex){
-            System.out.println("exception " + ex);
-        }
 
+        Parent root = FXMLLoader.load(ChooseTaskList.class.getResource("../chooseTaskList.fxml"));
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root, 600, 300));
+        primaryStage.show();
     }
 
 

@@ -22,10 +22,10 @@ import ua.sumdu.j2se.innapolushkina.tasks.model.LinkedTaskList;
 import ua.sumdu.j2se.innapolushkina.tasks.model.Task;
 import ua.sumdu.j2se.innapolushkina.tasks.model.TaskIO;
 import ua.sumdu.j2se.innapolushkina.tasks.model.TaskList;
-import java.io.File;
+
+import java.io.*;
 
 import java.awt.*;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
@@ -265,13 +265,28 @@ public class TaskListController {
            linkedTaskList.add(task);
            refresh();
            trayIcon.displayMessage(task.getTitle(), new StringBuilder("The task: ").append(task.getTitle()).append(" has been successfully added").toString(), TrayIcon.MessageType.INFO);
-          // refreshSublist();
        }
    }
 
 
     public void exit(ActionEvent event) {
         //tasksFile = new File(new StringBuilder(tasklistsDir).append(savedTasksFileName).toString());
+        File storedDefaultFilePath = new File("storedDefaultFilePath.txt");
+        if(!storedDefaultFilePath.exists()){
+            try {
+                storedDefaultFilePath.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            Writer writer =  new BufferedWriter(new FileWriter(storedDefaultFilePath));
+            writer.write(tasksFile.getAbsolutePath());
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         File previousFile = new File("D:\\JAVA\\TaskManagerPolushkinaInna\\src\\ua\\sumdu\\j2se\\innapolushkina\\tasks\\previousFile.txt");
         TaskList list = new LinkedTaskList();
         for (Task t:observableList
@@ -296,13 +311,20 @@ public class TaskListController {
         System.out.println(new StringBuilder(getClass().getName()).append(": loading the task list"));
         List <Task> listlist = new LinkedList<>();
         TaskList list = new LinkedTaskList();
-        TaskIO.readText(list,tasksFile);
-        for (Task t:list
-             ) {
-            listlist.add(t);
-            linkedTaskList.add(t);
+        if(tasksFile == null) {
+            observableList = FXCollections.observableArrayList(Collections.synchronizedList(listlist));
         }
-        observableList = FXCollections.observableArrayList(Collections.synchronizedList(listlist));
+        else {
+            TaskIO.readText(list,tasksFile);
+            for (Task t:list
+            ) {
+                listlist.add(t);
+                linkedTaskList.add(t);
+            }
+            observableList = FXCollections.observableArrayList(Collections.synchronizedList(listlist));
+        }
+
+
         //TaskIO.readText(observableList,tasksFile);
         System.out.println(new StringBuilder(getClass().getName()).append(": the list has benn loaded: ").append(observableList));
         return observableList;
