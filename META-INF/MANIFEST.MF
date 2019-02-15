@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: out
+Main-Class: ua.sumdu.j2se.innapolushkina.tasks.Main
+

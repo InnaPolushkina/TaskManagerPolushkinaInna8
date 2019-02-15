@@ -17,12 +17,11 @@
       </Label>
       <DatePicker fx:id="startDate" layoutX="60.0" layoutY="122.0" />
       <DatePicker fx:id="endDate" layoutX="344.0" layoutY="122.0" />
-      <Button fx:id="search" layoutX="566.0" layoutY="122.0" mnemonicParsing="false" onAction="#search" text="Search" />
-      <Button fx:id="close" layoutX="618.0" layoutY="445.0" mnemonicParsing="false" onAction="#close" text="Close" />
+      <Button fx:id="searchDates" layoutX="566.0" layoutY="122.0" mnemonicParsing="false" text="Search" />
+      <Button fx:id="closeCalendar" layoutX="618.0" layoutY="445.0" mnemonicParsing="false" text="Close" />
       <Label layoutX="60.0" layoutY="93.0" text="After" />
       <Label layoutX="346.0" layoutY="93.0" text="Before" />
-      <Label layoutX="253.0" layoutY="48.0" text="Please, enter valid dates" />
-      <TableView fx:id="listTasksCalendar" accessibleRole="IMAGE_VIEW" layoutX="59.0" layoutY="180.0" prefHeight="228.0" prefWidth="469.0">
+      <TableView fx:id="listTasksCalendar" accessibleRole="IMAGE_VIEW" layoutX="60.0" layoutY="205.0" prefHeight="228.0" prefWidth="469.0">
          <columns>
             <TableColumn fx:id="nameTaskCalendar" prefWidth="235.0" text="Name task" />
             <TableColumn fx:id="dateTaskCalendar" prefWidth="233.0" text="Date" />
@@ -31,5 +30,15 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <Label fx:id="errorUserMessage" layoutX="119.0" layoutY="165.0" text="Label" textFill="#f20a0a">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="userMessage" layoutX="431.0" layoutY="167.0" text="Label">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

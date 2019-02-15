@@ -1,17 +1,10 @@
 package ua.sumdu.j2se.innapolushkina.tasks;
 
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -27,36 +20,6 @@ public class Utill {
     public static final Pattern patternRepetative = Pattern.compile(regexpRepetative);
     public static final Pattern patternNotRepetative = Pattern.compile(regexpNotRepetative);
     public static final Pattern integerString = Pattern.compile("(^0$)|(^[1-9]{1}\\d*$)");
-
-
-    public static int parseInterval(String string) {
-        if (string == null) {
-            System.err.println(new StringBuilder("Utill.parseInterval : The string must not be null "));
-            throw new IllegalArgumentException("The string must not be null");
-        }
-        int seconds = 0;
-        Pattern pattern = Pattern.compile("(\\d*) day");
-        Matcher matcher = pattern.matcher(string);
-        if(matcher.find()) {
-            seconds += Integer.parseInt(matcher.group(1)) * 86400;
-        }
-        pattern = Pattern.compile("(\\d*) hour");
-        matcher = pattern.matcher(string);
-        if(matcher.find()) {
-            seconds += Integer.parseInt(matcher.group(1)) * 3600;
-        }
-        pattern = Pattern.compile("(\\d*) minute");
-        matcher = pattern.matcher(string);
-        if(matcher.find()) {
-            seconds += Integer.parseInt(matcher.group(1)) * 60;
-        }
-        pattern = Pattern.compile("(\\d*) second");
-        matcher = pattern.matcher(string);
-        if(matcher.find()) {
-            seconds += Integer.parseInt(matcher.group(1));
-        }
-        return seconds;
-    }
 
 
     public static int secondsToIntegerDays(int seconds) {
@@ -98,13 +61,6 @@ public class Utill {
             node.setVisible(true);
         }
     }
-
-
-    /*public static LocalDateTime dateToLocalDateTime(Date date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormate);
-        SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormate);
-        return LocalDateTime.parse(dateFormat.format(date),formatter);
-    }*/
 
     public static LocalDate dateToLocalDateTime(Date date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormate);

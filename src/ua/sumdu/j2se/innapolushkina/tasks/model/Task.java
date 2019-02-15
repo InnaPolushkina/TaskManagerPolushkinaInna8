@@ -256,14 +256,12 @@ public class Task  implements Cloneable,  Serializable{
             }
             return interval;
         }
-        public void setTime(Date start,Date end,int interval){
+        public void setRepeated(boolean r) {
+        this.repeat = r;
+        }
+        public void setTime(Date start,Date end,int interval) throws IllegalArgumentException{
             if(interval <= 0 || start.getTime() < 0 || end.getTime() < 0) {
-                try {
                     throw new IllegalArgumentException("Incorrected interval, must be above zero");
-                }
-                catch(IllegalArgumentException ex) {
-                    System.out.println(ex);
-                }
             }
             else{
                 if(!isRepeated()){
