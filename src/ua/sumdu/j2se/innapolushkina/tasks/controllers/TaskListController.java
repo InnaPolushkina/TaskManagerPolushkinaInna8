@@ -58,24 +58,22 @@ public class TaskListController {
         loader.setController(view);
         view.setTasksFile(tasksFile);
         try {
-            loader.setLocation(TaskListView.class.getResource("sample.fxml"));
+            loader.setLocation(TaskListView.class.getResource("fxml/sample.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
             stage.setScene(scene);
             stage.show();
+            logger.info("open main tasks list");
         }
         catch (IOException ex){
-           // System.out.println("exception " + ex);
-            logger.warn(ex);
-
+            logger.error("main task list was not load" + ex.getMessage());
         }
-        logger.info("open main tasks list");
+
         view.getAddButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 addNewTask();
-                logger.info("added new task");
             }
         });
         // action for exit from app and save list in file
@@ -139,6 +137,7 @@ public class TaskListController {
         view.getDetailsButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                logger.info("try to open window with details info about selected task");
                 detailsInfoController = new DetailsInfoController(view.getObservableList().get(view.selectedRow()));
             }
         });
@@ -152,13 +151,12 @@ public class TaskListController {
      */
     public void addNewTask() {
         Task newTask;
-        Date thisMoment = new Date();
         if (view.getTitle() == null || "".equals(view.getTitle())) {
             try {
                 throw new IOException("Task without name ");
             }
             catch (IOException ex) {
-                System.out.println(ex + "  -> adding task");
+                logger.warn("try to add task without name");
                 view.setErrorMessageUser("Can`t add task without name !");
             }
         }
@@ -170,12 +168,12 @@ public class TaskListController {
                 if (view.getRepeat()) {
                     Date end = java.sql.Date.valueOf(view.getDateEnd());
                     end.setTime(end.getTime() + view.getEndTime().getHour() * 3600000 + view.getEndTime().getMinute() * 60000);
-                    if (date.after(end) || date.before(thisMoment)) {
+                    if (date.after(end) || date.before(new Date())) {
                         try {
                             throw new IllegalArgumentException(" Incorrected date");
                         } catch (IllegalArgumentException ex) {
-                            System.out.println(ex + "  -> adding task");
                             view.setErrorMessageUser("Please, enter correct data ! ! !");
+                            logger.warn("try to add task with incorrectly dates");
                         }
                     } else {
                         try {
@@ -188,22 +186,21 @@ public class TaskListController {
                             view.notifyUser();
                             refresh();
                         } catch (NumberFormatException ex) {
-                            System.out.println(ex + "   -> adding task");
                             view.setErrorMessageUser("Please, enter correct data ! ! !");
+                            logger.warn("try to add task with incorrectly interval");
                         }
                         catch (StringIndexOutOfBoundsException ex) {
-                            System.out.println(ex + "interval task is not correct");
                             view.setErrorMessageUser("Please, enter valid repeated interval");
+                            logger.warn("try to add task with incorrectly interval");
                         }
                     }
-
                 } else {
-                    if (date.before(thisMoment)) {
+                    if (date.before(new Date())) {
                         try {
                             throw new IllegalArgumentException(" Incorrected date");
                         } catch (IllegalArgumentException ex) {
-                            System.out.println(ex + " - > adding task");
                             view.setErrorMessageUser("Please, enter correct data ! ! !");
+                            logger.warn("try to add task with date from the past");
                         }
                     }
                     else {
@@ -216,10 +213,9 @@ public class TaskListController {
                         logger.info("added new task");
                     }
                 }
-
             } catch (NullPointerException ex) {
                 view.setErrorMessageUser("Please, enter correct data ! ! !");
-                System.out.println(ex + " adding task192");
+                logger.info("try to add task with out dates");
             }
         }
 
@@ -237,7 +233,7 @@ public class TaskListController {
             try {
                 storedDefaultFilePath.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("error in writing path to previous file ",e);
             }
         }
         try {
@@ -246,7 +242,7 @@ public class TaskListController {
             writer.flush();
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("error in writing path to previous file",e);
         }
         TaskList list = new LinkedTaskList();
         for (Task task:taskList) {
@@ -254,24 +250,28 @@ public class TaskListController {
         }
         try {
             TaskIO.writeText(list, tasksFile.getAbsoluteFile());
-            //TaskIO.writeText(list, previousFile);
-            System.out.println(new StringBuilder(getClass().getName()).append(": tasks have been successfully saved"));
+            logger.info("tasks list have been successfully saved");
         } catch (IOException e) {
-            System.out.println(e.getCause());
+            logger.warn("tasks have not been saves!",e);
         }
         stage.close();
 
 
         if(calendarController != null) {
             calendarController.closeCalendar();
+            logger.info("close window calendar");
         }
         if(detailsInfoController != null) {
             detailsInfoController.closeWindow();
+            logger.info("close window for details info");
         }
         if(editTaskController != null) {
             editTaskController.closeWindow();
+            logger.info("close window for edit task");
         }
-        logger.info("exit app");
+        logger.info("work of app was correctly ended ");
+        System.exit(0);
+
     }
 
     /**
@@ -281,6 +281,7 @@ public class TaskListController {
         Task task = taskList.get(view.selectedRow());
         taskList.remove(task);
         view.getObservableList().remove(task);
+        logger.info("removed task ( " + task.toString() +" )" );
     }
 
     /**
@@ -292,9 +293,11 @@ public class TaskListController {
         int rownum = view.selectedRow();
 
         editTaskController = new EditTaskController(view.getObservableList().get(rownum));
+        logger.info("try to edit task " + view.getObservableList().get(rownum).toString());
         taskList.remove(rownum);
         task = editTaskController.getEditedTask();
         taskList.add(task);
+        logger.info("task was saved");
     }
 
     /**
@@ -304,14 +307,15 @@ public class TaskListController {
         TaskList tasksFromFile = new LinkedTaskList();
         try {
             TaskIO.readText(tasksFromFile, tasksFile);
+            logger.info("tasks list was successfully loaded from file " + tasksFile.getAbsolutePath());
         }
         catch (IOException ex) {
-            System.out.println(ex);
+            logger.error("error while parsing file with tasks, created new file for writing tasks list");
         }
-        System.out.println(tasksFromFile.toString());
         for (Task task: tasksFromFile) {
             taskList.add(task);
         }
+
     }
 
     /**
@@ -320,7 +324,6 @@ public class TaskListController {
    private void refresh(){
         view.setErrorMessageUser(" ");
         view.setTitle("");
-
         LocalDate start = LocalDate.now();
         view.setDate(start);
         LocalTime startTime = LocalTime.now();

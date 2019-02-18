@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.apache.log4j.Logger;
 import ua.sumdu.j2se.innapolushkina.tasks.Notificator;
 import ua.sumdu.j2se.innapolushkina.tasks.Utill;
 import ua.sumdu.j2se.innapolushkina.tasks.model.LinkedTaskList;
@@ -26,11 +27,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * class TaskListView have methods for getting/setting element(or its values) from view of main tasks list
+ * class TaskListView have methods for getting/setting element(or its values) from/to view of main tasks list
  */
 public class TaskListView {
     private ObservableList<Task> observableList;
-
+    private static Logger logger = Logger.getLogger(TaskListView.class);
     @FXML
     private Button addButton;
     @FXML
@@ -404,7 +405,6 @@ public class TaskListView {
      * @throws IOException, when can not load tasks from file
      */
     private ObservableList<Task> loadTaskList() throws IOException {
-        System.out.println(new StringBuilder(getClass().getName()).append(": loading the task list"));
         List <Task> listlist = new LinkedList<>();
         TaskList list = new LinkedTaskList();
         if(tasksFile == null) {
@@ -420,11 +420,10 @@ public class TaskListView {
                 }
             }
             catch (IOException ex) {
-                System.out.println(ex);
+                logger.error("tasks was not load into table view from file " + tasksFile.getAbsolutePath() + ex.getMessage());
             }
             observableList = FXCollections.observableArrayList(Collections.synchronizedList(listlist));
         }
-        System.out.println(new StringBuilder(getClass().getName()).append(": the list has benn loaded: ").append(observableList));
         return observableList;
     }
 
@@ -432,7 +431,6 @@ public class TaskListView {
      * the method notify users than some vent is going to happen less 1 minutes and event is active
      */
     public void notifyUser(){
-        System.out.println(new StringBuilder(getClass().getName()).append(": launching the notificator starts"));
         SystemTray tray = SystemTray.getSystemTray();
         Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
         TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
@@ -446,7 +444,6 @@ public class TaskListView {
         Notificator notificator = new Notificator(observableList, trayIcon);
         notificator.setDaemon(true);
         notificator.start();
-        System.out.println(new StringBuilder(getClass().getName()).append(": launching the notificator finished"));
     }
 
 }

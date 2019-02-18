@@ -8,19 +8,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ua.sumdu.j2se.innapolushkina.tasks.model.Task;
 import ua.sumdu.j2se.innapolushkina.tasks.views.DetailsInfoView;
-import ua.sumdu.j2se.innapolushkina.tasks.Utill.*;
+
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import static ua.sumdu.j2se.innapolushkina.tasks.Utill.dateToLocalDateTime;
-import static ua.sumdu.j2se.innapolushkina.tasks.Utill.dateToLocalTime;
+import org.apache.log4j.Logger;
+import static ua.sumdu.j2se.innapolushkina.tasks.Utill.*;
 
 /**
  * the class for show details info about selected task
  */
 public class DetailsInfoController {
+    private static Logger logger = Logger.getLogger(DetailsInfoController.class);
     private DetailsInfoView detailsInfoView = new DetailsInfoView();
     private Stage stage = new Stage();
     private Task task;
@@ -33,22 +33,21 @@ public class DetailsInfoController {
      */
     public DetailsInfoController(Task task) {
         this.task = task;
-        System.out.println(task.toString());
         stage.setTitle("Details info about selected task");
         FXMLLoader loader = new FXMLLoader();
         loader.setController(detailsInfoView);
         try {
-            loader.setLocation(DetailsInfoView.class.getResource("detailsInfo.fxml"));
+            loader.setLocation(DetailsInfoView.class.getResource("fxml/detailsInfo.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
             stage.setScene(scene);
             stage.show();
             detailsInfo();
-
+            logger.info("show details info about task ' " + task.getTitle() + " ' ");
         }
         catch (IOException ex) {
-            System.out.println(ex);
+            logger.error("window for details info about task was not loaded " + ex.getMessage());
         }
 
 
@@ -84,7 +83,8 @@ public class DetailsInfoController {
         detailsInfoView.setTimeDatails(time.toString());
         detailsInfoView.setDateDateils(date.toString());
         if (task.isRepeated()) {
-            detailsInfoView.setRepaetDetails("Yes");
+            int interval = task.getRepeatInterval();
+            detailsInfoView.setRepaetDetails("every " + Integer.toString(secondsToIntegerDays(interval)) + " day " + Integer.toString(secondsToIntegerHours(interval)) + " hours " + Integer.toString(secondsToIntegerMinutes(interval)) + " min");
             LocalDate dateEnd = dateToLocalDateTime(task.getEndTime());
             detailsInfoView.setDateEndDetails(dateEnd.toString());
             LocalTime timeEnd = dateToLocalTime(task.getEndTime());
@@ -92,10 +92,8 @@ public class DetailsInfoController {
         }
         else {
             detailsInfoView.setRepaetDetails("No");
-            // detailsInfoView.getDateEndDetails().setText(" ");
             detailsInfoView.setDateEndDetails(" - ");
             detailsInfoView.setTimeEndDetails(" - ");
-            // detailsInfoView.getDateEndDetails().setText(" ");
         }
     }
 }

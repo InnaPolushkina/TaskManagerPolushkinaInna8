@@ -1,6 +1,7 @@
 package ua.sumdu.j2se.innapolushkina.tasks;
 
 import javafx.collections.ObservableList;
+import org.apache.log4j.Logger;
 import ua.sumdu.j2se.innapolushkina.tasks.Utill;
 import ua.sumdu.j2se.innapolushkina.tasks.model.Task;
 
@@ -28,7 +29,7 @@ import java.util.Date;
  * Shows a tray-notification
  * */
 public class Notificator extends Thread {
-
+    private static Logger logger = Logger.getLogger(Notificator.class);
     private ObservableList<Task> list;
     private TrayIcon trayIcon;
 
@@ -47,17 +48,16 @@ public class Notificator extends Thread {
      */
     @Override
     public void run() {
-        System.out.println(new StringBuilder("ua.sumdu.j2se.innapolushkina.tasks.Notificator thread starts: ").append(currentThread().toString()));
+        logger.info("start notify");
         while (true) {
             for (Task task : list){
                 Date nextTimeAfterNow = task.nextTimeAfter(new Date());
-                //boolean active = task.isActive();
                 if(nextTimeAfterNow == null){
                     continue;
                 }
                 if(nextTimeAfterNow.getTime() < new Date(System.currentTimeMillis() + 60000).getTime() && task.isActive()){
                     trayIcon.displayMessage(task.getTitle(), new StringBuilder("At ").append(Utill.dateToLocalDateTime(task.nextTimeAfter(new Date()))).toString(), TrayIcon.MessageType.INFO);
-                    System.out.println(new StringBuilder("Notified: ").append(task.getTitle()).append(", incoming time: "). append(task.nextTimeAfter(new Date())));
+                    logger.info("notified ' " + task.getTitle() + " ' incoming " + task.nextTimeAfter(new Date()));
                 }
             }
             try {

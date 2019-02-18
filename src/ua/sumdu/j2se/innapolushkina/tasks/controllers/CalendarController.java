@@ -38,7 +38,7 @@ public class CalendarController {
         FXMLLoader loader = new FXMLLoader();
         loader.setController(calendarView);
         try {
-            loader.setLocation(CalendarView.class.getResource("calendar.fxml"));
+            loader.setLocation(CalendarView.class.getResource("fxml/calendar.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -47,7 +47,7 @@ public class CalendarController {
             logger.info("open calendar");
         }
         catch (IOException ex){
-            System.out.println("exception " + ex);
+            logger.error("calendar was not opened " + ex.getMessage());
         }
         calendarView.getSearchDates().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -90,12 +90,12 @@ public class CalendarController {
                     calendarView.setUserMessage("");
                 }
             } catch (IllegalArgumentException ex) {
-                System.out.println(ex);
+                logger.warn("try to search tasks with incorrectly dates");
                 calendarView.setErrorUserMessage("Enter correct dates !");
             }
         }
         catch (NullPointerException ex) {
-            System.out.println(ex);
+            logger.warn("try to search task without dates");
             calendarView.setErrorUserMessage("Enter both of date");
         }
         calendarView.setObservableList(searchedList);
@@ -103,9 +103,10 @@ public class CalendarController {
     }
 
     /**
-     * the for close window calendar
+     * the method for close window calendar
      */
     public void closeCalendar() {
         stage.close();
+        logger.info("calendar was closed");
     }
 }

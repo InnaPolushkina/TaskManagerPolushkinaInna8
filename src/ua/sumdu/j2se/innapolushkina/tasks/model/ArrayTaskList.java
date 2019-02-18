@@ -4,15 +4,26 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Date;
 
+/**
+ * class ArrayTaskList realizes collection array for class Task
+ */
 public class ArrayTaskList extends TaskList implements Cloneable{
     private Task[]array;
     private int index;
 
+    /**
+     * constructor for class ArrayTasList
+     * generate array for 10 elements
+     */
     public ArrayTaskList() {
         array = new Task[10];
         index = 0;
     }
 
+    /**
+     * the method add new task in array
+     * @param task for adding
+     */
     public void add(Task task) {
         if(task == null) {
             throw new IllegalArgumentException("Empty task can not be at List");
@@ -22,17 +33,19 @@ public class ArrayTaskList extends TaskList implements Cloneable{
             Task[] array2 = array;
                 array = new Task[array.length*2 + 1];
                 System.arraycopy(array2,0,array,0,index);
-                //System.out.println(array.length);
                 array[index] = task;               
             }
             else {
                 array[index] = task;
             }
-             index++;            
-        
-
+             index++;
     }
-    
+
+    /**
+     * the method remove task from array
+     * @param task for removing
+     * @return true if task was removed, else false
+     */
     public boolean remove(Task task){
         boolean res = false;
         int indexRemove = 0;
@@ -64,9 +77,20 @@ public class ArrayTaskList extends TaskList implements Cloneable{
             return false;
         }
     }
+
+    /**
+     * the method get size of array
+     * @return integer values
+     */
     public int size(){
         return index;
     }
+
+    /**
+     * the method get task on index
+     * @param index have index for getting task
+     * @return element of array dependents on index
+     */
     public Task getTask(int index){
         if(index < 0 || index >= this.size()) {
             try {
@@ -81,36 +105,43 @@ public class ArrayTaskList extends TaskList implements Cloneable{
           return array[index];  
         }
     }
+
+    /**
+     * the method get subarray from main array where dates between from and to
+     * @param from start time
+     * @param to end time
+     * @return array
+     */
      public ArrayTaskList incoming(Date from, Date to){
         ArrayTaskList result = new ArrayTaskList();
         for(Task  elem: array){
            if(elem.nextTimeAfter(from)!= null) {
                 result.add(elem);
            }
-                /*if(elem.getEndTime() == to && elem.getStartTime() < from && !elem.isRepeated()){
-                        result.add(elem);   
-                }
-                else if(elem.nextTimeAfter(from)>from && elem.nextTimeAfter(from)<=to && elem.isActive()){
-                        result.add(elem);
-                }     */    
-            
         }
         return result;
     }
-    
-    /*private boolean equally(Task task1, Task task2){
-        if(task1.getTitle() == task2.getTitle() && task1.getTime() == task2.getTime())
-            return true;
-        else return false;
-    }*/
-    
+
+    /**
+     * constructor for iterator
+     * @return new Iterator for object of this class
+     */
     public Iterator<Task> iterator(){
         return new ArrayTaskListIterator();
     }
+
+    /**
+     * private class for ArrayTaskListIterator
+     * realises standard methods of iterator
+     */
     private class ArrayTaskListIterator implements Iterator<Task>{
         private boolean wasMoved;
         private int currentIndex = -1;
-        
+
+        /**
+         * the method get next object from collections
+         * @return next element of array
+         */
         public Task next(){
             if(currentIndex + 1 > index - 1){
                 throw new NoSuchElementException();
@@ -119,11 +150,18 @@ public class ArrayTaskList extends TaskList implements Cloneable{
                 return array[++currentIndex];
             }
         }
-        
+
+        /**
+         * the method verifiable if array has next element
+         * @return return true if has, else return false
+         */
         public boolean hasNext(){
             return currentIndex + 1 <= index - 1;
         }
-        
+
+        /**
+         * the method for removing element of array
+         */
         public void remove(){
             if(!wasMoved){
                 throw new IllegalStateException();
@@ -139,18 +177,23 @@ public class ArrayTaskList extends TaskList implements Cloneable{
             }
         }      
     }
-
+    /**
+     * the method generate hash code for object of this class
+     * @return integer values
+     */
        @Override
         public int hashCode(){
             int hash = 37;
             for(int i = 0; i < index; i++){
                 hash += array[i].hashCode();
-            }            
-            //System.out.println(++i);
-            
+            }
             return hash;
         }
-        
+    /**
+     * the method compare any object with this
+     * @param ob have any object for comparison
+     * @return true if o equals this, else false
+     */
         @Override
         public boolean equals(Object ob){
             if(this == ob){
@@ -173,13 +216,12 @@ public class ArrayTaskList extends TaskList implements Cloneable{
             
             return true;
         }
-        
-    /*@Override
-    public String toString() {
-        return "ArrayTaskList{" +
-                "array=" + Arrays.toString(array) +
-                '}';
-    }*/
+
+    /**
+     * the method clone object of ArrayTaskList
+     * @return clone of this
+     * @throws CloneNotSupportedException if can't clone object
+     */
     @Override
     public ArrayTaskList clone() throws CloneNotSupportedException{
         ArrayTaskList clone = (ArrayTaskList)super.clone();

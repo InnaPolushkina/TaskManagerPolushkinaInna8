@@ -8,7 +8,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //ua.sumdu.j2se.innapolushkina.tasks.controllers.TaskListController controller = new ua.sumdu.j2se.innapolushkina.tasks.controllers.TaskListController();
         ChooseTaskListController chooseTaskListController = new ChooseTaskListController();
     }
 

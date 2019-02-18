@@ -7,17 +7,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.sumdu.j2se.innapolushkina.tasks.views.ChooseTaskListView;
 
 import java.io.*;
-import java.util.logging.Logger;
+
 
 /**
  * the class ChooseTaskListController have methods for start work with app
  * user can choose three variants: create new list, open previous or load tasks list from any text file
  */
 public class ChooseTaskListController {
-    //private static Logger logger = Logger.getLogger(ChooseTaskListController.class);
+   // private static Logger logger = Logger.getLogger(ChooseTaskListController.class);
+   private static final Logger logger = LogManager.getLogger(ChooseTaskListController.class);
     private ChooseTaskListView chooseTaskListView = new ChooseTaskListView();
     private Stage stage = new Stage();
     private String storedDefaultFilePath = "storedDefaultFilePath.txt";
@@ -33,15 +36,16 @@ public class ChooseTaskListController {
         FXMLLoader loader = new FXMLLoader();
         loader.setController(chooseTaskListView);
         try{
-            loader.setLocation(ChooseTaskListView.class.getResource("chooseTaskList.fxml"));
+            loader.setLocation(ChooseTaskListView.class.getResource("fxml/chooseTaskList.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
             stage.setScene(scene);
             stage.show();
+            logger.info("open window for choosing lists in start work of app");
         }
         catch (IOException ex){
-            System.out.println( ex);
+            logger.error("can not load window for choosing file"+ ex.getMessage());
         }
         // create new file for tasks list
         chooseTaskListView.getCreateNewListButton().setOnAction(new EventHandler<ActionEvent>() {
@@ -78,16 +82,15 @@ public class ChooseTaskListController {
                 throw new IOException("File without name");
             }
             catch (IOException ex) {
-                System.out.println(ex);
                 chooseTaskListView.setUserMessage("You don`t enter file name !");
-               // chooseTaskListView.setNameNewFile("Enter name of FILE ! ! !");
+                logger.warn("try to create file without name");
             }
         }
         else {
             File file = new File(chooseTaskListView.getNameNewFile() + ".txt");
             try {
                 new File(chooseTaskListView.getNameNewFile() + ".txt").createNewFile();
-                System.out.println("file created");
+                logger.info("create file" + file.getAbsolutePath());
                 TaskListController taskListController = new TaskListController(file.getPath());
                 stage.close();
                 if(file.exists()){
@@ -95,9 +98,8 @@ public class ChooseTaskListController {
                 }
             }
             catch (IOException ex) {
-                System.out.println(ex);
+                logger.warn("try to create file without name");
                 chooseTaskListView.setNameNewFile("Enter name of FILE ! ! !");
-
             }
         }
 
@@ -114,26 +116,25 @@ public class ChooseTaskListController {
         try{
             Reader reader = new BufferedReader(new FileReader(storedDefaultFilePath));
             defaultFilePath = ((BufferedReader) reader).readLine();
-            System.out.println(" Path to load file " + defaultFilePath);
+            logger.info("open previous tasks list " + defaultFilePath);
             reader.close();
-           // File prevFile = new FileReader(defaultFilePath);
             try {
                 TaskListController taskListController = new TaskListController(defaultFilePath);
                 stage.close();
             }
-            catch (FileNotFoundException ex) {
-                System.out.println(ex);
-                System.out.println("106 line");
+           catch (FileNotFoundException ex) {
+               logger.error("previous file " + defaultFilePath + " was not found" + ex.getMessage());
                 chooseTaskListView.setUserMessage("Program did not find previous file, file could deleted or no created in last session");
             }
             catch (NullPointerException ex) {
-                System.out.println(ex);
+                logger.error("previous file " + defaultFilePath +" was not found" + ex.getMessage());
                 chooseTaskListView.setUserMessage("Program did not find previous file, file could deleted or no created in last session");
             }
 
         }
         catch(IOException ex) {
-            System.out.println(ex);
+            logger.error("error while reading path to previous file" + ex.getMessage() + ex.getClass());
+            chooseTaskListView.setUserMessage("If you firstly open the app, please create file for tasks list,\nelse data about last list was lost, please crete new list");
         }
 
     }
@@ -147,18 +148,22 @@ public class ChooseTaskListController {
     public void loadTaskListFromFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose file");
+        logger.info("open fileChooser for load tasks list from any text file");
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)","*.txt" );
         fileChooser.getExtensionFilters().add(extensionFilter);
         try {
             File file = fileChooser.showOpenDialog(stage);
+            logger.info("open file" + file.getAbsolutePath() + " with fileChooser");
             TaskListController taskListController = new TaskListController(file.getAbsolutePath());
             stage.close();
+
         } catch (NullPointerException ex) {
-            System.out.println(ex + "  - user don`t choose file for loading tasks list");
+            logger.warn("close fileChooser and don't choose file " +  ex.getClass());
             chooseTaskListView.setUserMessage("You don't choose file ");
         }
         catch (FileNotFoundException ex) {
             System.out.println(ex);
+            logger.warn("file was not found" + ex.getClass());
         }
 
 

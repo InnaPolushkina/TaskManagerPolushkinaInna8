@@ -3,6 +3,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+/**
+ * class DetailsInfoView have methods for getting/setting element(or its values) from/to view of details info about selected task
+ */
 public class DetailsInfoView {
     @FXML
     private Label dateEndDatailsLabel;

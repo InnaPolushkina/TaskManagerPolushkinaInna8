@@ -1,6 +1,5 @@
 package ua.sumdu.j2se.innapolushkina.tasks.model;
 
-
 import java.util.Date;
 import java.io.Serializable;
 import java.text.ParseException;
@@ -10,12 +9,21 @@ import java.io.IOException;
 import java.lang.String;
 import java.util.regex.*;
 
+/**
+ * class TaskIO realizes methods for writing/reading tasks list to/from file of stream
+ */
 public class TaskIO implements Serializable,  Cloneable {
     public static final String dateFormate = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String regexpRepetative = "^\"(.*)\" from \\[(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3})] to \\[(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3})] every \\[(.*)](.*)[.;]$";
     public static final String regexpNotRepetative = "^\"(.*)\" at \\[(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3})](.*)[.;]$";
     public static final Pattern patternRepetative = Pattern.compile(regexpRepetative);
     public static final Pattern patternNotRepetative = Pattern.compile(regexpNotRepetative);
+
+    /**
+     * the method convert String value into integer interval
+     * @param string have string for converting
+     * @return integer interval
+     */
     public static int parseInterval(String string){
         if (string == null){
             throw new IllegalArgumentException("The string must not be null");
@@ -43,6 +51,13 @@ public class TaskIO implements Serializable,  Cloneable {
         }
         return seconds;
     }
+
+    /**
+     * the method write tasks from list into OutputStream in binary format
+     * @param tasks list for writing
+     * @param out stream for writing
+     * @throws IOException if method can't write task into stream
+     */
     public static void write(TaskList tasks, OutputStream out) throws IOException {
         DataOutputStream dataOutputStream = null;
         try{
@@ -69,6 +84,12 @@ public class TaskIO implements Serializable,  Cloneable {
         }
     }
 
+    /**
+     * the method read tasks from InputStream in binary format
+     * @param tasks list for reading
+     * @param in stream for reading
+     * @throws IOException if can't read tasks from stream
+     */
     public static void read(TaskList tasks, InputStream in) throws IOException {
         DataInputStream dataInputStream = null;
         try {
@@ -102,7 +123,12 @@ public class TaskIO implements Serializable,  Cloneable {
             in.close();
         }
     }
-
+    /**
+     * the method write tasks from list into File in binary format
+     * @param tasks list for writing
+     * @param file for writing
+     * @throws IOException if method can't write task into file
+     */
     public static void writeBinary(TaskList tasks, File file) throws IOException{
         BufferedOutputStream bufferedOutputStream = null;
         try{
@@ -114,7 +140,12 @@ public class TaskIO implements Serializable,  Cloneable {
             }
         }
     }
-
+    /**
+     * the method read tasks from File in binary format
+     * @param tasks list for reading
+     * @param file file for reading
+     * @throws IOException if can't read tasks from file
+     */
     public static void readBinary(TaskList tasks, File file) throws IOException{
         FileInputStream fileInputStream = null;
         try{
@@ -126,7 +157,12 @@ public class TaskIO implements Serializable,  Cloneable {
             }
         }
     }
-
+    /**
+     * the method write tasks from list into Writer in text format
+     * @param tasks list for writing
+     * @param out writer for writing
+     * @throws IOException if method can't write task into stream
+     */
     public static void write(TaskList tasks, Writer out) throws IOException{
         PrintWriter printWriter = null;
         try {
@@ -138,7 +174,12 @@ public class TaskIO implements Serializable,  Cloneable {
             }
         }
     }
-    
+    /**
+     * the method read tasks from Reader in text format
+     * @param tasks list for reading
+     * @param in reader for reading
+     * @throws IOException if can't read tasks from stream
+     */
     public static void read(TaskList tasks, Reader in) throws IOException, ParseException{
         BufferedReader bufferedReader = null;
         try{
@@ -181,9 +222,14 @@ public class TaskIO implements Serializable,  Cloneable {
             }
         }
     }
-    
+
+    /**
+     * the method write tasks list into file in text format
+     * @param tasks list for reading
+     * @param file for writing
+     * @throws IOException
+     */
      public static void writeText(TaskList tasks, File file) throws IOException{
-        System.out.println("wrinitg starts");
         BufferedWriter bufferedWriter = null;
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(file));
@@ -191,9 +237,13 @@ public class TaskIO implements Serializable,  Cloneable {
         } finally {
             bufferedWriter.close();
         }
-        System.out.println("Writing ends");
     }
-
+    /**
+     * the method read tasks list from file in text format
+     * @param tasks list for writing
+     * @param file for reading
+     * @throws IOException
+     */
     public static void readText(TaskList tasks, File file) throws IOException{
         BufferedReader bufferedReader =  null;
         try {

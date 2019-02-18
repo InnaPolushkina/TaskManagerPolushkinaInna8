@@ -3,15 +3,26 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+/**
+ * class LinkedTaskList realizes LinkedList collections for class Task
+ */
 public class LinkedTaskList extends TaskList {
     private Node head;
     private Node tail;
     private int n;
-    
+
+    /**
+     * the constructor for this class
+     */
     public LinkedTaskList(){
         super();
         n = 0;
     }
+
+    /**
+     * the method add new task into linked list collection
+     * @param task for adding
+     */
     public void add(Task task){
         if(task == null){
             throw new IllegalArgumentException("Empty task can not be at LinkedList!");
@@ -29,9 +40,20 @@ public class LinkedTaskList extends TaskList {
             n++;
         
     }
+
+    /**
+     * the method get size of liked list
+     * @return integer values
+     */
     public int size(){
         return n;
     }
+
+    /**
+     * the method remove element of linked list
+     * @param task have task for removing
+     * @return true if task was removing, else return false
+     */
     public boolean remove(Task task){
         if(task == null){
             throw new IllegalArgumentException("Can not remove empty task");
@@ -62,6 +84,12 @@ public class LinkedTaskList extends TaskList {
         }
         return false;
     }
+
+    /**
+     * the method get elements of linked list dependents on its index
+     * @param index of element in linked list
+     * @return task with index
+     */
     public Task getTask(int index) {
         if(index < 0 || index >= this.size()) {
             try {
@@ -80,18 +108,32 @@ public class LinkedTaskList extends TaskList {
             return t.getTask();
         }
     }
+    /**
+     * constructor for iterator
+     * @return new Iterator for object of this class
+     */
     public Iterator<Task> iterator(){
         return new LinkedTaskListIterator();
-    } 
+    }
+    /**
+     * private class for LinkedTaskListIterator
+     * realises standard methods of iterator
+     */
     private class LinkedTaskListIterator implements Iterator<Task>{
         private Node t = new Node();
         private int currentIndex = -1;
         private boolean wasMoved;
-        
+
+        /**
+         * constructor for this class
+         */
         {
             t.setNext(head);
         }
-        
+        /**
+         * the method get next object from collections
+         * @return next element of linked list
+         */
         public Task next(){
             t = t.getNext();
             wasMoved = true;
@@ -102,10 +144,16 @@ public class LinkedTaskList extends TaskList {
                 return t.getTask();
             }
         }
+        /**
+         * the method verifiable if linked list has next element
+         * @return return true if has, else return false
+         */
         public boolean hasNext(){
             return t.getNext()!=null;
         }
-        
+        /**
+         * the method for removing element of linked list
+         */
         public void remove(){
             if(!wasMoved){
                 throw new IllegalStateException();
@@ -126,16 +174,20 @@ public class LinkedTaskList extends TaskList {
                 n--;
             }
         }
-        
-        
-        
-
     }
+    /**
+     * the method generate hash code for object of this class
+     * @return integer values
+     */
         @Override
         public int hashCode(){
             return Objects.hash(head, tail, n);
         }
-        
+    /**
+     * the method compare any object with this
+     * @param ob have any object for comparison
+     * @return true if o equals this, else false
+     */
         @Override
         public boolean equals(Object ob){
             if(this == ob){
@@ -159,22 +211,13 @@ public class LinkedTaskList extends TaskList {
             }
             return true;
         }
-        
-        /*@Override
-        public String toString(){
-            StringBuilder temp = new StringBuilder();
-            Node k = head;
-            while(k != null){
-                temp.append(k.getTask().toString());
-                k = k.getNext();
-            }
-            return "LinkedTaskList{" +
-                "length=" + n +
-                ", array=" + temp +
-                '}';
-        }*/
-        
-         @Override
+
+    /**
+     * the method clone object of the class
+     *@return clone of this
+     *@throws CloneNotSupportedException if can't clone object
+     */
+    @Override
     public LinkedTaskList clone() throws CloneNotSupportedException {
         LinkedTaskList clone = (LinkedTaskList) super.clone();
         Iterator<Task> iterator = iterator();

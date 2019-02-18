@@ -3,9 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/TaskManagerPolushkinaInna_jar</output-path>
     <root id="archive" name="TaskManagerPolushkinaInna.jar">
       <element id="module-output" name="TaskManagerPolushkinaInna" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jfoenix-8.0.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/log4j-1.2.17.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/lombok.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jfoenix-8.0.4.jar" path-in-jar="/" />
+      <element id="library" level="project" name="lombok" />
     </root>
   </artifact>
 </component>

@@ -1,22 +1,21 @@
-
-
-2019-02-14 21:12:29 INFO  TaskListController:72 - open main tasks list
-2019-02-14 21:14:51 INFO  TaskListController:72 - open main tasks list
-2019-02-14 21:16:08 INFO  TaskListController:72 - open main tasks list
-2019-02-14 21:17:26 INFO  TaskListController:72 - open main tasks list
-2019-02-14 21:18:22 INFO  TaskListController:72 - open main tasks list
-2019-02-14 21:22:25 INFO  TaskListController:72 - open main tasks list
-2019-02-14 21:36:33 INFO  TaskListController:72 - open main tasks list
-2019-02-14 22:02:49 INFO  TaskListController:72 - open main tasks list
-2019-02-15 10:32:33 INFO  TaskListController:72 - open main tasks list
-2019-02-15 10:34:00 INFO  TaskListController:72 - open main tasks list
-2019-02-15 10:47:58 INFO  TaskListController:72 - open main tasks list
-2019-02-15 12:54:53 INFO  TaskListController:72 - open main tasks list
-2019-02-15 13:00:43 INFO  TaskListController:72 - open main tasks list
-2019-02-15 13:06:29 INFO  TaskListController:72 - open main tasks list
-2019-02-15 13:12:45 INFO  TaskListController:72 - open main tasks list
-2019-02-15 13:13:50 INFO  TaskListController:72 - open main tasks list
-2019-02-15 13:20:49 INFO  TaskListController:72 - open main tasks list
-2019-02-15 13:44:09 INFO  TaskListController:72 - open main tasks list
-2019-02-15 13:48:39 INFO  TaskListController:72 - open main tasks list
-2019-02-15 13:56:07 INFO  TaskListController:72 - open main tasks list
+2019-02-19 01:05:14 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-02-19 01:05:17 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\list235.txt
+2019-02-19 01:05:17 INFO  TaskListController:310 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\list235.txt
+2019-02-19 01:05:17 INFO  Notificator:51 - start notify
+2019-02-19 01:05:17 INFO  TaskListController:67 - open main tasks list
+2019-02-19 01:09:10 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-02-19 01:09:12 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\list235.txt
+2019-02-19 01:09:12 INFO  TaskListController:310 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\list235.txt
+2019-02-19 01:09:12 INFO  Notificator:51 - start notify
+2019-02-19 01:09:13 INFO  TaskListController:67 - open main tasks list
+2019-02-19 01:09:24 INFO  Notificator:51 - start notify
+2019-02-19 01:09:24 INFO  TaskListController:213 - added new task
+2019-02-19 01:09:25 INFO  TaskListController:253 - tasks list have been successfully saved
+2019-02-19 01:09:25 INFO  TaskListController:272 - work of app was correctly ended 
+2019-02-19 01:09:29 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-02-19 01:09:30 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\list235.txt
+2019-02-19 01:09:30 INFO  TaskListController:310 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\list235.txt
+2019-02-19 01:09:30 INFO  Notificator:51 - start notify
+2019-02-19 01:09:31 INFO  TaskListController:67 - open main tasks list
+2019-02-19 01:09:33 INFO  TaskListController:253 - tasks list have been successfully saved
+2019-02-19 01:09:33 INFO  TaskListController:272 - work of app was correctly ended 
