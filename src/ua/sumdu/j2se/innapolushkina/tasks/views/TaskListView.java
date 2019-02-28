@@ -81,6 +81,8 @@ public class TaskListView {
     @FXML
     private Label errorMessageUser;
     @FXML
+    private Label emptyListMessage;
+    @FXML
     private Button removeButton;
     @FXML
     private Button editButton;
@@ -108,14 +110,16 @@ public class TaskListView {
         nameTask.setCellValueFactory(new PropertyValueFactory<Task, String>("observableTitle"));
         dateTask.setCellValueFactory(new PropertyValueFactory<Task, String>("observableTime"));
 
-        //tasksFile = new File(new StringBuilder(tasklistsDir).append(savedTasksFileName).toString());
-
         try {
             observableList = loadTaskList();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //observableList = FXCollections.observableArrayList();
+        setEmptyListMessage(" ");
+        if (observableList.size() == 0) {
+            Utill.hideNodes(removeButton,editButton,detailsButton,calendarButton);
+            setEmptyListMessage("Some functions is not available, because your tasks list is empty. Please add any task");
+        }
         listTasks.setItems(observableList);
         Utill.hideNodes(dateEnd, dateEndLabel, daysTxt, daysLabel, minutesLabel, minutesTxt, hoursTxt, hoursLabel, endTime, intervalLabel);
         notifyUser();
@@ -176,6 +180,15 @@ public class TaskListView {
     public Button getExitButton() {
         return exitButton;
     }
+
+    /**
+     * the method set string value to emptyListMessage
+     * @param emptyListMessage have string with message to user
+     */
+    public void setEmptyListMessage(String emptyListMessage) {
+        this.emptyListMessage.setText(emptyListMessage);
+    }
+
 
     /**
      * the method get value from TextField for title of task
@@ -375,12 +388,13 @@ public class TaskListView {
      * the method get selected row from table view
      * @return number of selected row
      */
-    public int selectedRow(){
+    public int selectedRow() {
         TableView.TableViewSelectionModel seltionModel = listTasks.getSelectionModel();
         ObservableList selectedCells = seltionModel.getSelectedCells();
         TablePosition tablePosition = (TablePosition) selectedCells.get(0);
         int row = tablePosition.getRow();
         return row;
+
     }
 
     /**

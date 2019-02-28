@@ -156,7 +156,6 @@ public class ChooseTaskListController {
             logger.info("open file" + file.getAbsolutePath() + " with fileChooser");
             TaskListController taskListController = new TaskListController(file.getAbsolutePath());
             stage.close();
-
         } catch (NullPointerException ex) {
             logger.warn("close fileChooser and don't choose file " +  ex.getClass());
             chooseTaskListView.setUserMessage("You don't choose file ");

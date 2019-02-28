@@ -1,8 +1,0 @@
-"test2" from [2019-02-15 16:11:00.000] to [2019-02-22 16:52:00.000] every [1 day 5 minutes] inactive;
-"test3" from [2020-02-02 16:12:00.000] to [2020-02-29 16:12:00.000] every [1 day 2 hours];
-"test 4" from [2019-02-23 23:00:00.000] to [2019-03-08 19:00:00.000] every [1 day 1 hour 20 minutes] inactive;
-"test 1" from [2019-02-15 12:11:00.000] to [2019-02-28 18:11:00.000] every [1 day] inactive;
-"new task for test logger" from [2019-02-22 23:01:00.000] to [2019-02-23 19:01:00.000] every [1 day 1 hour 1 minute];
-"test" at [2019-03-01 23:56:00.000] inactive;
-"new task" from [2019-03-01 23:21:00.000] to [2020-02-09 19:21:00.000] every [1 day 1 hour 1 minute];
-"22222222" from [2019-02-22 11:04:00.000] to [2020-02-15 07:04:00.000] every [1 day 1 hour 1 minute].

@@ -20,9 +20,9 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="251.0" layoutY="80.0" prefHeight="27.0" prefWidth="122.0" text="Main tasks list">
+      <Label layoutX="247.0" layoutY="80.0" prefHeight="27.0" prefWidth="139.0" text="Main tasks list">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="18.0" />
          </font></Label>
       <!--<Button id="button" fx:id="button" layoutX="556.0" layoutY="198.0" mnemonicParsing="false"  text="Edit task" /> -->
       <TableView fx:id="listTasks" accessibleRole="IMAGE_VIEW" layoutX="70.0" layoutY="136.0" prefHeight="228.0" prefWidth="469.0">
@@ -76,5 +76,10 @@
       <Button fx:id="removeButton" layoutX="570.0" layoutY="158.0" mnemonicParsing="false" text="Remove" />
       <Button fx:id="editButton" layoutX="570.0" layoutY="196.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Edit" />
       <Button fx:id="detailsButton" layoutX="570.0" layoutY="238.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Details" />
+      <Label fx:id="emptyListMessage" layoutX="70.0" layoutY="107.0" prefHeight="20.0" prefWidth="665.0" text="Label" textAlignment="CENTER" textFill="#2f1515">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

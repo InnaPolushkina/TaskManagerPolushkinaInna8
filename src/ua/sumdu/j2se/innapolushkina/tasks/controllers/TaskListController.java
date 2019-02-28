@@ -137,11 +137,23 @@ public class TaskListController {
         view.getDetailsButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                logger.info("try to open window with details info about selected task");
-                detailsInfoController = new DetailsInfoController(view.getObservableList().get(view.selectedRow()));
+                detailsInfo();
             }
         });
 
+    }
+
+    /**
+     * the method for showing details information about selected task
+     */
+    public void detailsInfo() {
+        try {
+            detailsInfoController = new DetailsInfoController(view.getObservableList().get(view.selectedRow()));
+            logger.info("open window with details info about selected task");
+        }
+        catch (IndexOutOfBoundsException ex) {
+            logger.warn("try to watch details info about task, but no task is selected");
+        }
     }
 
     /**
@@ -218,6 +230,10 @@ public class TaskListController {
                 logger.info("try to add task with out dates");
             }
         }
+        if (taskList.size() == 1) {
+            Utill.showNodes(view.getDetailsButton(),view.getEditButton(),view.getRemoveButton(),view.getCalendarButton());
+            view.setEmptyListMessage(" ");
+        }
 
 
     }
@@ -278,10 +294,20 @@ public class TaskListController {
      * the method remove selected task from LinkedList taskList and from view
      */
     public void remove() {
-        Task task = taskList.get(view.selectedRow());
-        taskList.remove(task);
-        view.getObservableList().remove(task);
-        logger.info("removed task ( " + task.toString() +" )" );
+        try {
+            Task task = taskList.get(view.selectedRow());
+            taskList.remove(task);
+            view.getObservableList().remove(task);
+            logger.info("removed task ( " + task.toString() + " )");
+            if (taskList.size() == 0) {
+                Utill.hideNodes(view.getDetailsButton(), view.getEditButton(), view.getDetailsButton(), view.getCalendarButton(), view.getRemoveButton());
+                view.setEmptyListMessage("Some functions is not available, because your tasks list is empty. Please add any task");
+                logger.info("tasks list is empty");
+            }
+        }
+        catch (IndexOutOfBoundsException ex) {
+            logger.warn("try to remove task, but no task is selected " + ex.getMessage());
+        }
     }
 
     /**
@@ -289,15 +315,19 @@ public class TaskListController {
      * method replaces selected task with editions
      */
     public void edit() {
-        Task task;
-        int rownum = view.selectedRow();
-
-        editTaskController = new EditTaskController(view.getObservableList().get(rownum));
-        logger.info("try to edit task " + view.getObservableList().get(rownum).toString());
-        taskList.remove(rownum);
-        task = editTaskController.getEditedTask();
-        taskList.add(task);
-        logger.info("task was saved");
+        try {
+            Task task;
+            int rownum = view.selectedRow();
+            editTaskController = new EditTaskController(view.getObservableList().get(rownum));
+            logger.info("try to edit task " + view.getObservableList().get(rownum).toString());
+            taskList.remove(rownum);
+            task = editTaskController.getEditedTask();
+            taskList.add(task);
+            logger.info("task was saved");
+        }
+        catch (IndexOutOfBoundsException ex) {
+            logger.warn("try to edit task, but no task is selected " + ex.getMessage());
+        }
     }
 
     /**
