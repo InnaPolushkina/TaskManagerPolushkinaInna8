@@ -52,7 +52,7 @@ public class EditTaskController {
             setValuesIntoView();
         }
         catch (IOException ex){
-           logger.error("window for edit task was not loaded " + ex.getMessage());
+           logger.error("window for edit task was not loaded ",ex);
         }
 
         editTaskView.getCancelButton().setOnAction(new EventHandler<ActionEvent>() {

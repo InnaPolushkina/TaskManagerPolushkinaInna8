@@ -47,7 +47,7 @@ public class CalendarController {
             logger.info("open calendar");
         }
         catch (IOException ex){
-            logger.error("calendar was not opened " + ex.getMessage());
+            logger.error("calendar was not opened ", ex);
         }
         calendarView.getSearchDates().setOnAction(new EventHandler<ActionEvent>() {
             @Override

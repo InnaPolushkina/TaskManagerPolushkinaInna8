@@ -430,11 +430,10 @@ public class TaskListView {
                 for (Task t:list
                 ) {
                     listlist.add(t);
-                    //linkedTaskList.add(t);
                 }
             }
             catch (IOException ex) {
-                logger.error("tasks was not load into table view from file " + tasksFile.getAbsolutePath() + ex.getMessage());
+                logger.error("tasks was not load into table view from file " + tasksFile.getAbsolutePath(), ex);
             }
             observableList = FXCollections.observableArrayList(Collections.synchronizedList(listlist));
         }

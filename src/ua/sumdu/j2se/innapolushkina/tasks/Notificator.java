@@ -63,7 +63,7 @@ public class Notificator extends Thread {
             try {
                 sleep(60000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         }
     }

@@ -19,7 +19,6 @@ import java.io.*;
  * user can choose three variants: create new list, open previous or load tasks list from any text file
  */
 public class ChooseTaskListController {
-   // private static Logger logger = Logger.getLogger(ChooseTaskListController.class);
    private static final Logger logger = LogManager.getLogger(ChooseTaskListController.class);
     private ChooseTaskListView chooseTaskListView = new ChooseTaskListView();
     private Stage stage = new Stage();
@@ -123,17 +122,17 @@ public class ChooseTaskListController {
                 stage.close();
             }
            catch (FileNotFoundException ex) {
-               logger.error("previous file " + defaultFilePath + " was not found" + ex.getMessage());
+               logger.error("previous file " + defaultFilePath + " was not found",ex);
                 chooseTaskListView.setUserMessage("Program did not find previous file, file could deleted or no created in last session");
             }
             catch (NullPointerException ex) {
-                logger.error("previous file " + defaultFilePath +" was not found" + ex.getMessage());
+                logger.error("previous file " + defaultFilePath +" was not found",ex);
                 chooseTaskListView.setUserMessage("Program did not find previous file, file could deleted or no created in last session");
             }
 
         }
         catch(IOException ex) {
-            logger.error("error while reading path to previous file" + ex.getMessage() + ex.getClass());
+            logger.error("error while reading path to previous file",ex);
             chooseTaskListView.setUserMessage("If you firstly open the app, please create file for tasks list,\nelse data about last list was lost, please crete new list");
         }
 
@@ -157,12 +156,11 @@ public class ChooseTaskListController {
             TaskListController taskListController = new TaskListController(file.getAbsolutePath());
             stage.close();
         } catch (NullPointerException ex) {
-            logger.warn("close fileChooser and don't choose file " +  ex.getClass());
+            logger.warn("close fileChooser and don't choose file ",  ex);
             chooseTaskListView.setUserMessage("You don't choose file ");
         }
         catch (FileNotFoundException ex) {
-            System.out.println(ex);
-            logger.warn("file was not found" + ex.getClass());
+            logger.warn("file was not found", ex);
         }
 
 

@@ -67,7 +67,7 @@ public class TaskListController {
             logger.info("open main tasks list");
         }
         catch (IOException ex){
-            logger.error("main task list was not load" + ex.getMessage());
+            logger.error("main task list was not load", ex);
         }
 
         view.getAddButton().setOnAction(new EventHandler<ActionEvent>() {
@@ -182,7 +182,7 @@ public class TaskListController {
                     end.setTime(end.getTime() + view.getEndTime().getHour() * 3600000 + view.getEndTime().getMinute() * 60000);
                     if (date.after(end) || date.before(new Date())) {
                         try {
-                            throw new IllegalArgumentException(" Incorrected date");
+                            throw new IllegalArgumentException(" Incorrectly date");
                         } catch (IllegalArgumentException ex) {
                             view.setErrorMessageUser("Please, enter correct data ! ! !");
                             logger.warn("try to add task with incorrectly dates");
@@ -306,7 +306,7 @@ public class TaskListController {
             }
         }
         catch (IndexOutOfBoundsException ex) {
-            logger.warn("try to remove task, but no task is selected " + ex.getMessage());
+            logger.warn("try to remove task, but no task is selected ",ex);
         }
     }
 
@@ -326,7 +326,7 @@ public class TaskListController {
             logger.info("task was saved");
         }
         catch (IndexOutOfBoundsException ex) {
-            logger.warn("try to edit task, but no task is selected " + ex.getMessage());
+            logger.warn("try to edit task, but no task is selected ",ex);
         }
     }
 

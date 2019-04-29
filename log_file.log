@@ -425,3 +425,116 @@
 2019-02-28 19:56:20 INFO  TaskListController:225 - added new task
 2019-02-28 19:56:23 INFO  TaskListController:269 - tasks list have been successfully saved
 2019-02-28 19:56:23 INFO  TaskListController:288 - work of app was correctly ended 
+2019-03-01 10:51:17 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-03-01 10:51:18 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\memk.txt
+2019-03-01 10:51:19 INFO  TaskListController:340 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\memk.txt
+2019-03-01 10:51:20 INFO  Notificator:51 - start notify
+2019-03-01 10:51:21 INFO  TaskListController:67 - open main tasks list
+2019-03-01 11:04:36 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-03-01 11:04:39 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\memk.txt
+2019-03-01 11:04:39 INFO  TaskListController:340 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\memk.txt
+2019-03-01 11:04:39 INFO  Notificator:51 - start notify
+2019-03-01 11:04:40 INFO  TaskListController:67 - open main tasks list
+2019-03-01 11:04:42 WARN  TaskListController:309 - try to remove task, but no task is selected null
+2019-03-01 11:04:43 WARN  TaskListController:329 - try to edit task, but no task is selected null
+2019-03-01 11:04:44 WARN  TaskListController:155 - try to watch details info about task, but no task is selected
+2019-03-01 11:04:45 WARN  TaskListController:329 - try to edit task, but no task is selected null
+2019-03-01 11:04:46 WARN  TaskListController:309 - try to remove task, but no task is selected null
+2019-03-01 11:04:47 WARN  TaskListController:329 - try to edit task, but no task is selected null
+2019-03-01 11:04:50 WARN  TaskListController:155 - try to watch details info about task, but no task is selected
+2019-03-01 11:04:52 INFO  TaskListController:301 - removed task ( "rrrrrrr" at [2019-03-02 23:56:00.000] inactive )
+2019-03-01 11:04:52 INFO  TaskListController:305 - tasks list is empty
+2019-03-01 11:09:21 INFO  Notificator:51 - start notify
+2019-03-01 11:09:21 INFO  TaskListController:225 - added new task
+2019-03-01 11:09:24 WARN  TaskListController:309 - try to remove task, but no task is selected null
+2019-03-01 11:09:24 WARN  TaskListController:329 - try to edit task, but no task is selected null
+2019-03-01 11:09:25 WARN  TaskListController:155 - try to watch details info about task, but no task is selected
+2019-03-01 11:09:25 WARN  TaskListController:329 - try to edit task, but no task is selected null
+2019-03-01 11:09:27 INFO  TaskListController:301 - removed task ( "task" at [2019-04-05 00:09:00.000] inactive )
+2019-03-01 11:09:27 INFO  TaskListController:305 - tasks list is empty
+2019-03-01 11:09:30 INFO  TaskListController:269 - tasks list have been successfully saved
+2019-03-01 11:09:30 INFO  TaskListController:288 - work of app was correctly ended 
+2019-03-11 11:49:41 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-03-11 11:49:46 INFO  ChooseTaskListController:93 - create fileD:\JAVA\TaskManagerPolushkinaInna\dvsvasdvb.docx
+2019-03-11 11:49:46 ERROR TaskListController:343 - error while parsing file with tasks, created new file for writing tasks list
+2019-03-11 11:49:47 ERROR TaskListView:437 - tasks was not load into table view from file D:\JAVA\TaskManagerPolushkinaInna\dvsvasdvb.docxdvsvasdvb.docx (Не удается найти указанный файл)
+2019-03-11 11:49:49 INFO  Notificator:51 - start notify
+2019-03-11 11:49:49 INFO  TaskListController:67 - open main tasks list
+2019-03-11 11:50:00 INFO  Notificator:51 - start notify
+2019-03-11 11:50:00 INFO  TaskListController:225 - added new task
+2019-03-11 11:50:02 INFO  TaskListController:269 - tasks list have been successfully saved
+2019-03-11 11:50:02 INFO  TaskListController:288 - work of app was correctly ended 
+2019-03-11 11:50:58 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-03-11 11:51:01 INFO  ChooseTaskListController:93 - create fileD:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-03-11 11:51:01 INFO  TaskListController:340 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-03-11 11:51:01 INFO  Notificator:51 - start notify
+2019-03-11 11:51:02 INFO  TaskListController:67 - open main tasks list
+2019-03-11 11:51:09 INFO  Notificator:51 - start notify
+2019-03-11 11:51:09 INFO  TaskListController:225 - added new task
+2019-03-11 11:51:10 INFO  TaskListController:269 - tasks list have been successfully saved
+2019-03-11 11:51:10 INFO  TaskListController:288 - work of app was correctly ended 
+2019-03-11 11:51:50 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-03-13 13:50:05 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-03-13 13:50:13 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-03-13 13:50:13 ERROR TaskListController:343 - error while parsing file with tasks, created new file for writing tasks list
+2019-03-13 13:50:15 ERROR TaskListView:437 - tasks was not load into table view from file D:\JAVA\TaskManagerPolushkinaInna\aaa.docD:\JAVA\TaskManagerPolushkinaInna\aaa.doc (Не удается найти указанный файл)
+2019-03-13 13:50:16 INFO  Notificator:51 - start notify
+2019-03-13 13:50:16 INFO  TaskListController:67 - open main tasks list
+2019-03-13 13:50:33 INFO  Notificator:51 - start notify
+2019-03-13 13:50:33 INFO  TaskListController:225 - added new task
+2019-03-13 13:51:07 INFO  EditTaskController:51 - open window for edit task
+2019-03-13 13:51:07 INFO  TaskListController:322 - try to edit task "new task" at [2019-03-17 21:50:00.000] inactive
+2019-03-13 13:51:07 INFO  EditTaskController:179 - saving edition of task
+2019-03-13 13:51:07 INFO  TaskListController:326 - task was saved
+2019-03-13 13:51:18 INFO  CalendarController:47 - open calendar
+2019-03-13 13:51:27 INFO  CalendarController:110 - calendar was closed
+2019-03-13 13:51:31 INFO  TaskListController:269 - tasks list have been successfully saved
+2019-03-13 13:51:31 INFO  CalendarController:110 - calendar was closed
+2019-03-13 13:51:31 INFO  TaskListController:278 - close window calendar
+2019-03-13 13:51:31 INFO  TaskListController:286 - close window for edit task
+2019-03-13 13:51:31 INFO  TaskListController:288 - work of app was correctly ended 
+2019-03-13 13:51:37 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-03-13 13:51:38 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-03-13 13:51:38 INFO  TaskListController:340 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-03-13 13:51:39 INFO  Notificator:51 - start notify
+2019-03-13 13:51:39 INFO  TaskListController:67 - open main tasks list
+2019-04-29 17:03:36 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-04-29 17:03:40 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-04-29 17:03:41 INFO  TaskListController:340 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-04-29 17:03:42 INFO  Notificator:51 - start notify
+2019-04-29 17:03:43 INFO  TaskListController:67 - open main tasks list
+2019-04-29 17:04:01 INFO  Notificator:51 - start notify
+2019-04-29 17:04:01 INFO  TaskListController:225 - added new task
+2019-04-29 17:04:03 INFO  TaskListController:269 - tasks list have been successfully saved
+2019-04-29 17:04:03 INFO  TaskListController:288 - work of app was correctly ended 
+2019-04-29 17:04:11 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-04-29 17:04:18 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-04-29 17:04:18 INFO  TaskListController:340 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-04-29 17:04:18 INFO  Notificator:51 - start notify
+2019-04-29 17:04:19 INFO  TaskListController:67 - open main tasks list
+2019-04-29 17:04:25 INFO  TaskListController:301 - removed task ( "мымывм" at [2019-05-01 12:03:00.000] )
+2019-04-29 17:13:26 INFO  ChooseTaskListController:45 - open window for choosing lists in start work of app
+2019-04-29 17:13:29 INFO  ChooseTaskListController:119 - open previous tasks list D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-04-29 17:13:30 INFO  TaskListController:340 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\aaa.doc
+2019-04-29 17:13:30 INFO  Notificator:51 - start notify
+2019-04-29 17:13:30 INFO  TaskListController:67 - open main tasks list
+2019-04-29 17:13:35 INFO  TaskListController:301 - removed task ( "мымывм" at [2019-05-01 12:03:00.000] )
+2019-04-29 17:13:38 INFO  DetailsInfoController:47 - show details info about task ' new task ' 
+2019-04-29 17:13:38 INFO  TaskListController:152 - open window with details info about selected task
+2019-04-29 17:13:46 INFO  DetailsInfoController:47 - show details info about task ' new task ' 
+2019-04-29 17:13:46 INFO  TaskListController:152 - open window with details info about selected task
+2019-04-29 17:13:52 INFO  EditTaskController:51 - open window for edit task
+2019-04-29 17:13:52 INFO  TaskListController:322 - try to edit task "new task" from [2019-03-17 21:50:00.000] to [2019-03-20 15:51:00.000] every [1 day 5 minutes] inactive
+2019-04-29 17:13:52 INFO  EditTaskController:179 - saving edition of task
+2019-04-29 17:13:52 INFO  TaskListController:326 - task was saved
+2019-04-29 17:28:20 INFO  ChooseTaskListController:44 - open window for choosing lists in start work of app
+2019-04-29 17:28:35 INFO  ChooseTaskListController:92 - create fileD:\JAVA\TaskManagerPolushkinaInna\newFile.txt
+2019-04-29 17:28:35 INFO  TaskListController:340 - tasks list was successfully loaded from file D:\JAVA\TaskManagerPolushkinaInna\newFile.txt
+2019-04-29 17:28:36 INFO  Notificator:51 - start notify
+2019-04-29 17:28:36 INFO  TaskListController:67 - open main tasks list
+2019-04-29 17:30:02 INFO  Notificator:51 - start notify
+2019-04-29 17:30:02 INFO  TaskListController:225 - added new task
+2019-04-29 17:30:09 INFO  DetailsInfoController:47 - show details info about task ' kbdnkbdn ' 
+2019-04-29 17:30:09 INFO  TaskListController:152 - open window with details info about selected task
+2019-04-29 17:30:15 INFO  TaskListController:301 - removed task ( "kbdnkbdn" at [2019-05-08 12:29:00.000] inactive )
+2019-04-29 17:30:15 INFO  TaskListController:305 - tasks list is empty

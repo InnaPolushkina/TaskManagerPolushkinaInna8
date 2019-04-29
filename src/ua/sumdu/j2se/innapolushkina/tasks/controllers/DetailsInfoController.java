@@ -47,7 +47,7 @@ public class DetailsInfoController {
             logger.info("show details info about task ' " + task.getTitle() + " ' ");
         }
         catch (IOException ex) {
-            logger.error("window for details info about task was not loaded " + ex.getMessage());
+            logger.error("window for details info about task was not loaded ",ex);
         }
 
 
